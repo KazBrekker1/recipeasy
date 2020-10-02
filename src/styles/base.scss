@@ -1,0 +1,37 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
+html,
+body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	background-color: #cf5c36;
+	&::-webkit-scrollbar {
+		width: 0;
+	}
+}
+
+.recipe {
+	height: 30rem;
+	align-self: stretch;
+	padding: 1em;
+	margin: 1rem;
+	transition: 300ms ease-in-out;
+	&:hover {
+		transform: translateY(-5px);
+	}
+	.card-header {
+		font-size: 1.5rem;
+	}
+	.card-footer {
+		.btn {
+			font-size: 20px;
+			transform: scale(0.7);
+		}
+	}
+	.card-body {
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
+}
