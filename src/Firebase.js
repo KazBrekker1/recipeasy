@@ -1,7 +1,7 @@
 import * as firebase from "firebase"
 
 const firebaseConfig = {
-	apiKey: process.env.API_KEY,
+	apiKey: "AIzaSyBZEa1H4x9ASXLqH-PxCJJHgTHLUGriee4",
 	authDomain: "recipeasy-88b57.firebaseapp.com",
 	databaseURL: "https://recipeasy-88b57.firebaseio.com",
 	projectId: "recipeasy-88b57",
