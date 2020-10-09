@@ -79,11 +79,9 @@ export default {
 			emit("exitForm")
 		}
 		const submitRecipe = () => {
-			store.dispatch("addRecipe", {
-				id: user.recipes.length + 1,
+			store.dispatch("createRecipe", {
 				title: state.title,
 				ingredients: [...state.ingredients],
-				DoC: Date.now(),
 				note: state.note,
 			})
 			state.title = ""

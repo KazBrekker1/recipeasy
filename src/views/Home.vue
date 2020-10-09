@@ -12,7 +12,8 @@
 import Recipe from "@/components/Recipe"
 import RecipeForm from "@/components/RecipeForm"
 import {computed, reactive} from "vue"
-import {useStore} from "vuex"
+import {useStore, mapState} from "vuex"
+import * as fb from "../Firebase"
 
 export default {
 	name: "Home",
@@ -22,20 +23,35 @@ export default {
 	},
 	setup() {
 		const store = useStore()
-		const user = store.state.currentUser
 		const state = reactive({
 			showForm: false,
 		})
-		const recipes = computed(() => user.recipes)
 		const toggleForm = () => {
 			state.showForm = !state.showForm
 		}
+
+		fb.recipesCollection
+			.where("userId", "==", fb.auth.currentUser.uid)
+			.orderBy("createdOn", "desc")
+			.onSnapshot((snapshot) => {
+				let recipesArray = []
+
+				snapshot.forEach((doc) => {
+					let recipe = doc.data()
+					recipe.id = doc.id
+
+					recipesArray.unshift(recipe) // Temporary
+				})
+
+				store.commit("setRecipes", recipesArray)
+			})
 		return {
 			toggleForm,
-			user,
-			recipes,
 			state,
 		}
+	},
+	computed: {
+		...mapState(["recipes"]),
 	},
 }
 </script>

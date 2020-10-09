@@ -1,17 +1,18 @@
 <template>
 	<nav id="nav" class="nav justify-content-between bg-dark sticky-top p-0">
 		<router-link class="nav-item" to="/">Recipeasy</router-link>
-		<h3 class="m-auto">
-			<strong> {{ user.fName }}</strong> 's Kitchen
+		<h3 v-if="userProfile.name" class="m-auto">
+			<strong> {{ userProfile.name }}</strong> 's Kitchen
 		</h3>
-		<div class="user-controls nav-item justify-content-center">
-			<button id="loginBTN" class="bg-warning border-0 rounded-pill m-3 pl-5 pr-5 pb-2">
+		<div v-if="!userProfile.name" class="p-2">
+			<router-link to="/login" id="loginBTN" class="nav-item bg-dark">
 				Log-In
-			</button>
-			<button id="registerBTN" class="bg-light border-0 rounded-pill m-3 pl-5 pr-5 pb-2">
+			</router-link>
+			<router-link to="/register" id="registerBTN" class="nav-item bg-dark">
 				Register
-			</button>
+			</router-link>
 		</div>
+		<button v-else class="btn btn-danger m-3" @click="logout">Logout</button>
 	</nav>
 	<router-view />
 </template>
@@ -25,7 +26,7 @@
 
 #nav {
 	a {
-		font-size: 2rem;
+		font-size: 1.75rem;
 		font-family: "Architects Daughter", cursive;
 		margin: 10px;
 		color: whitesmoke;
@@ -45,18 +46,20 @@
 </style>
 
 <script>
-import {useStore} from "vuex"
-import {users} from "@/assets/users"
+import {useStore, mapState} from "vuex"
+import {ref} from "vue"
 export default {
 	setup() {
 		const store = useStore()
-		const user = store.state.currentUser || users[0]
-		if (!store.state.currentUser) {
-			store.dispatch("setUser", users[0])
+		const logout = () => {
+			store.dispatch("logout")
 		}
 		return {
-			user,
+			logout,
 		}
+	},
+	computed: {
+		...mapState(["userProfile"]),
 	},
 }
 </script>
