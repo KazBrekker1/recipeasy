@@ -24,20 +24,32 @@
 		<div class="card-footer p-1 shadow-sm">
 			<button type="button" class="btn btn-primary">View</button>
 			<button type="button" class="btn btn-warning">Edit</button>
-			<button type="button" class="btn btn-danger">Delete</button>
+			<button type="button" class="btn btn-danger" @click="deleteRecipe">Delete</button>
 		</div>
 	</div>
 </template>
 
 <script>
+import * as fb from "../Firebase"
+import {useStore} from "vuex"
+
 export default {
 	name: "Recipe",
 	props: {
 		recp: Object,
 	},
+	setup(props, ctx) {
+		const store = useStore()
+		const deleteRecipe = () => {
+			let recipe = props.recp
+			let conf = confirm(`You sure you want to delete ${recipe.title} ?`)
+			conf ? store.dispatch("removeRecipe", recipe.id) : null
+		}
+		return {
+			deleteRecipe,
+		}
+	},
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
