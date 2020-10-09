@@ -19,8 +19,12 @@
 			type="password"
 			v-model.trim="pwd"
 		/>
-		<button class="btn btn-warning mb-3 w-25" @click="register">
+		<button class="btn btn-warning mb-3 w-25" v-if="!loading" @click="register">
 			Submit
+		</button>
+		<button class="btn btn-warning" type="button" v-else disabled>
+			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+			Loading...
 		</button>
 		<router-link to="/login">have an account?</router-link>
 	</div>
@@ -37,9 +41,10 @@ export default {
 			username: "",
 			emailTxt: "",
 			pwd: "",
+			loading: false,
 		})
 		const register = () => {
-			console.log(state.username, state.emailTxt, state.pwd)
+			state.loading = true
 			store.dispatch("register", {
 				name: state.username,
 				email: state.emailTxt,
