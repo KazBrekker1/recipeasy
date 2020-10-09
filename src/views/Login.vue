@@ -1,19 +1,21 @@
 <template>
-	<div class="login bg-dark p-4 rounded-lg shadow-lg disabled">
+	<form class="login bg-dark p-4 rounded-lg shadow-lg" @submit.prevent="login">
 		<h2 class="text-white mb-4">Log-in</h2>
 		<input
 			class="form-text p-2 text-center rounded border-0"
 			placeholder="you@domain.com"
 			type="email"
 			v-model.trim="emailTxt"
+			required
 		/>
 		<input
 			class="form-text p-2 text-center rounded border-0"
 			placeholder="*******"
 			type="password"
 			v-model.trim="pwd"
+			required
 		/>
-		<button class="btn btn-warning mb-3 w-25" v-if="!loading" @click="login">
+		<button type="submit" class="btn btn-warning mb-3 w-25" v-if="!loading">
 			login
 		</button>
 		<button class="btn btn-warning" type="button" v-else disabled>
@@ -21,7 +23,7 @@
 			Loading...
 		</button>
 		<router-link to="/register">need an account?</router-link>
-	</div>
+	</form>
 </template>
 
 <script>
@@ -37,11 +39,11 @@ export default {
 			loading: false,
 		})
 		const login = () => {
-			state.loading = true
 			store.dispatch("login", {
 				email: state.emailTxt,
 				password: state.pwd,
 			})
+			state.loading = true
 		}
 		return {
 			login,

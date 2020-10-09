@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
 html,
 body {
+	box-sizing: border-box;
+
 	height: 100%;
 	width: 100%;
 	margin: 0;
@@ -11,6 +13,11 @@ body {
 	}
 }
 
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
 .recipe {
 	height: 30rem;
 	align-self: stretch;

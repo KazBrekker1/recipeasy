@@ -1,25 +1,30 @@
 <template>
-	<div class="register bg-dark p-4 rounded-lg shadow-lg">
+	<form class="register bg-dark p-4 rounded-lg shadow-lg" @submit.prevent="register">
 		<h2 class="text-white mb-4">Register</h2>
 		<input
 			class="form-text p-2 text-center rounded border-0"
 			placeholder="username"
 			type="text"
 			v-model.trim="username"
+			required
 		/>
 		<input
 			class="form-text p-2 text-center rounded border-0"
 			placeholder="you@domain.com"
 			type="email"
 			v-model.trim="emailTxt"
+			required
 		/>
 		<input
 			class="form-text p-2 text-center rounded border-0"
 			placeholder="*******"
 			type="password"
 			v-model.trim="pwd"
+			required
+			pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+			title="1 Number, 1 Lowercase, Min 6 characters"
 		/>
-		<button class="btn btn-warning mb-3 w-25" v-if="!loading" @click="register">
+		<button type="submit" class="btn btn-warning mb-3 w-25" v-if="!loading">
 			Submit
 		</button>
 		<button class="btn btn-warning" type="button" v-else disabled>
@@ -27,7 +32,7 @@
 			Loading...
 		</button>
 		<router-link to="/login">have an account?</router-link>
-	</div>
+	</form>
 </template>
 
 <script>
@@ -44,12 +49,12 @@ export default {
 			loading: false,
 		})
 		const register = () => {
-			state.loading = true
 			store.dispatch("register", {
 				name: state.username,
 				email: state.emailTxt,
 				password: state.pwd,
 			})
+			state.loading = true
 		}
 		return {
 			register,
