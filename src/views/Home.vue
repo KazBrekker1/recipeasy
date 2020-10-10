@@ -11,7 +11,7 @@
 <script>
 import Recipe from "@/components/Recipe"
 import RecipeForm from "@/components/RecipeForm"
-import {computed, reactive} from "vue"
+import {reactive} from "vue"
 import {useStore, mapState} from "vuex"
 import * as fb from "../Firebase"
 

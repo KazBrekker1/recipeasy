@@ -25,11 +25,14 @@ export default createStore({
 		async login({dispatch, commit}, form) {
 			// sign user in
 			try {
-				const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
+				const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password).then(() => {
+					NProgress.done()
+				})
 				dispatch("fetchUserProfile", user)
 				commit("setError", "")
 			} catch (err) {
 				commit("setError", err.code)
+				NProgress.done()
 			}
 			// fetch user profile and set in state
 		},
@@ -46,7 +49,9 @@ export default createStore({
 		async register({dispatch, commit}, form) {
 			// sign user up
 			try {
-				const {user} = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+				const {user} = await fb.auth.createUserWithEmailAndPassword(form.email, form.password).then(() => {
+					NProgress.done()
+				})
 				// create user profile object in userCollections
 				await fb.usersCollection.doc(user.uid).set({
 					name: form.name,
@@ -60,8 +65,6 @@ export default createStore({
 		},
 		async logout({commit}) {
 			await fb.auth.signOut()
-			commit("setIsLogged", false)
-			// clear userProfile and redirect to /login
 			commit("setUserProfile", {})
 			router.push("/login")
 		},

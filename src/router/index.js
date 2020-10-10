@@ -34,10 +34,14 @@ export default router
 
 router.beforeEach((to, from, next) => {
 	const requiresAuth = to.matched.some((x) => x.meta.requiresAuth)
-
+	to.name ? NProgress.start() : null
 	if (requiresAuth && !auth.currentUser) {
 		next("/login")
 	} else {
 		next()
 	}
+})
+
+router.afterEach((to, from) => {
+	NProgress.done()
 })

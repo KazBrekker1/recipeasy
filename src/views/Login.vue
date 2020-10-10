@@ -16,12 +16,8 @@
 			v-model.trim="pwd"
 			required
 		/>
-		<button type="submit" class="btn btn-warning mb-3 w-25" v-if="!loading">
+		<button type="submit" class="btn btn-warning mb-3">
 			login
-		</button>
-		<button class="btn btn-warning" type="button" v-else disabled>
-			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-			Loading...
 		</button>
 		<router-link to="/register">need an account?</router-link>
 	</form>
@@ -37,13 +33,13 @@ export default {
 		const state = reactive({
 			emailTxt: "",
 			pwd: "",
-			loading: false,
 		})
 		const login = () => {
 			store.dispatch("login", {
 				email: state.emailTxt,
 				password: state.pwd,
 			})
+			NProgress.start()
 		}
 		return {
 			login,

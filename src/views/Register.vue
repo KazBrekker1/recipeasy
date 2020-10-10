@@ -25,12 +25,8 @@
 			pattern="(?=.*\d)(?=.*[a-z]).{6,}"
 			title="1 Number, 1 Lowercase, Min 6 characters"
 		/>
-		<button type="submit" class="btn btn-warning mb-3 w-25" v-if="!loading">
+		<button type="submit" class="btn btn-warning mb-3">
 			Submit
-		</button>
-		<button class="btn btn-warning" type="button" v-else disabled>
-			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-			Loading...
 		</button>
 		<router-link to="/login">have an account?</router-link>
 	</form>
@@ -47,9 +43,9 @@ export default {
 			username: "",
 			emailTxt: "",
 			pwd: "",
-			loading: false,
 		})
 		const register = () => {
+			NProgress.start()
 			store.dispatch("register", {
 				name: state.username,
 				email: state.emailTxt,
