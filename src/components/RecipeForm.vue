@@ -95,11 +95,15 @@ export default {
 			emit("exitForm")
 		}
 		const submitRecipe = () => {
-			store.dispatch("createRecipe", {
-				title: state.title,
-				ingredients: [...state.ingredients],
-				note: state.note,
-			})
+			try {
+				store.dispatch("createRecipe", {
+					title: state.title,
+					ingredients: [...state.ingredients],
+					note: state.note,
+				})
+			} catch (error) {
+				console.log(error)
+			}
 			state.title = ""
 			state.ingredients = []
 			state.note = ""

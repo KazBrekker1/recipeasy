@@ -6,6 +6,7 @@ export default createStore({
 	state: {
 		userProfile: {},
 		recipes: [],
+		error: "",
 	},
 	mutations: {
 		/////////////////////////////////
@@ -15,14 +16,22 @@ export default createStore({
 		setRecipes(state, val) {
 			state.recipes = val
 		},
+		setError(state, val) {
+			state.error = val
+		},
 	},
 	actions: {
 		/////////////////////////////////
-		async login({dispatch}, form) {
+		async login({dispatch, commit}, form) {
 			// sign user in
-			const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
+			try {
+				const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
+				dispatch("fetchUserProfile", user)
+				commit("setError", "")
+			} catch (err) {
+				commit("setError", err.code)
+			}
 			// fetch user profile and set in state
-			dispatch("fetchUserProfile", user)
 		},
 		async fetchUserProfile({commit}, user) {
 			const userProfile = await fb.usersCollection.doc(user.uid).get()
@@ -34,15 +43,20 @@ export default createStore({
 				router.push("/")
 			}
 		},
-		async register({dispatch}, form) {
+		async register({dispatch, commit}, form) {
 			// sign user up
-			const {user} = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
-			// create user profile object in userCollections
-			await fb.usersCollection.doc(user.uid).set({
-				name: form.name,
-			})
-			// fetch user profile and set in state
-			dispatch("fetchUserProfile", user)
+			try {
+				const {user} = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+				// create user profile object in userCollections
+				await fb.usersCollection.doc(user.uid).set({
+					name: form.name,
+				})
+				// fetch user profile and set in state
+				dispatch("fetchUserProfile", user)
+				commit("setError", "")
+			} catch (err) {
+				commit("setError", err.code)
+			}
 		},
 		async logout({commit}) {
 			await fb.auth.signOut()
@@ -61,7 +75,7 @@ export default createStore({
 				userName: state.userProfile.name,
 			})
 		},
-		async removeRecipe({state}, recipeID) {
+		async removeRecipe(recipeID) {
 			await fb.recipesCollection.doc(recipeID).delete()
 		},
 	},

@@ -1,6 +1,7 @@
 <template>
 	<form class="login bg-dark p-4 rounded-lg shadow-lg" @submit.prevent="login">
 		<h2 class="text-white mb-4">Log-in</h2>
+		<p class="alert-danger alert p-0 pl-2 pr-2" v-if="error">{{ error }}</p>
 		<input
 			class="form-text p-2 text-center rounded border-0"
 			placeholder="you@domain.com"
@@ -28,7 +29,7 @@
 
 <script>
 import {reactive, toRefs} from "vue"
-import {useStore} from "vuex"
+import {mapState, useStore} from "vuex"
 
 export default {
 	setup() {
@@ -43,12 +44,14 @@ export default {
 				email: state.emailTxt,
 				password: state.pwd,
 			})
-			state.loading = true
 		}
 		return {
 			login,
 			...toRefs(state),
 		}
+	},
+	computed: {
+		...mapState(["error"]),
 	},
 }
 </script>
