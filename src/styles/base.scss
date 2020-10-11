@@ -38,8 +38,15 @@ body {
 	}
 	.card-body {
 		&::-webkit-scrollbar {
-			width: 0;
+			width: 10px;
+			
+		}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: #E4572E;
+			border-radius: 40px;
 		}
 	}
 }
-
