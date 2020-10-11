@@ -9,6 +9,9 @@ app.use(enforce.HTTPS({trustProtoHeader: true}))
 app.get("/login", (req, res) => {
 	res.redirect("/")
 })
+app.get("/register", (req, res) => {
+	res.redirect("/")
+})
 app.use(serveStatic(__dirname + "/dist"))
 app.use(history())
 

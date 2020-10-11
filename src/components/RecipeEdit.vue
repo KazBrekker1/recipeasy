@@ -1,6 +1,6 @@
 <template>
-	<form class="card bg-dark mb-3 pb-1 font-monospace shadow-lg recipe" @submit.prevent="submitRecipe">
-		<div class="card-header bg-warning rounded p-0">
+	<form class="card bg-light mb-3 pb-1 font-monospace shadow-lg recipe" @submit.prevent="submitRecipe">
+		<div class="card-header bg-info rounded p-0">
 			<input
 				placeholder="Recipe Title"
 				v-model="title"
@@ -10,7 +10,7 @@
 			/>
 		</div>
 		<div class="card-body overflow-auto">
-			<h5 class="card-title text-decoration-underline text-left text-white">
+			<h5 class="card-title text-decoration-underline text-left">
 				Ingredients:
 			</h5>
 			<ul class="list-group card-text">
@@ -21,26 +21,20 @@
 				>
 					{{ ingredient.name }}
 					<span class="badge bg-primary rounded-pill p-2"> {{ ingredient.qty }} </span>
+					<button class="btn btn-danger" @click="removeIngredient(index)">-</button>
 				</li>
 				<li
 					class="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center rounded m-1"
 				>
 					<div>
-						<input
-							placeholder="Name"
-							v-model="ingr.name"
-							type="text"
-							class="bg-transparent border-0 w-75"
-							:required="required"
-						/>
+						<input placeholder="Name" v-model="ingr.name" type="text" class="bg-transparent border-0 w-75" />
 						<span class="badge bg-primary rounded-pill p-2 w-25">
 							<input
 								placeholder="qty"
 								id="inputSpan"
 								v-model="ingr.qty"
 								type="text"
-								class="text-white text-center font-weight-bold bg-transparent border-0 w-100"
-								:required="required"
+								class=" text-center font-weight-bold bg-transparent border-0 w-100"
 								@keypress.enter="addIngredient"
 							/>
 						</span>
@@ -49,41 +43,38 @@
 			</ul>
 			<button class="btn btn-success" @click="addIngredient">+</button>
 			<hr class="bg-light" />
-			<h5 class="text-left text-white text-decoration-underline">Notes:</h5>
-			<textarea
-				placeholder="Enter Note Here"
-				v-model="note"
-				rows="5"
-				class="bg-transparent text-white w-100 p-2"
-				required
-			></textarea>
+			<h5 class="text-left text-decoration-underline">Notes:</h5>
+			<textarea placeholder="Enter Note Here" v-model="note" rows="5" class="bg-transparent w-100 p-2" required>
+			</textarea>
 		</div>
 		<div class="card-footer p-1 shadow-sm">
-			<button type="submit" class="btn btn-success">Submit</button>
-			<button @click="cancelForm" type="button" class="btn btn-danger">Delete</button>
+			<button type="submit" class="btn btn-success" @click="submitEdit">Submit</button>
+			<button type="button" class="btn btn-danger" @click="cancleEdit">Cancle</button>
 		</div>
 	</form>
 </template>
+
 <script>
 import {useStore} from "vuex"
 import {toRefs, reactive} from "vue"
 export default {
-	name: "RecipeForm",
+	props: {
+		recipe: Object,
+	},
 	setup(props, {emit}) {
 		const store = useStore()
 		const user = store.state.currentUser
+		const oldRecipe = props.recipe
 		const state = reactive({
-			required: true,
-			title: "",
-			ingredients: [],
-			note: "",
+			title: oldRecipe.title,
+			ingredients: [...oldRecipe.ingredients],
+			note: oldRecipe.note,
 			ingr: {
 				name: "",
 				qty: "",
 			},
 		})
 		const addIngredient = () => {
-			state.required = false
 			state.ingredients.push({
 				name: state.ingr.name,
 				qty: state.ingr.qty || "Bil7ob",
@@ -91,11 +82,13 @@ export default {
 			state.ingr.name = ""
 			state.ingr.qty = ""
 		}
-		const cancelForm = () => {
-			emit("exitForm")
+		const removeIngredient = (index) => {
+			state.ingredients.splice(index, 1)
 		}
-		const submitRecipe = () => {
-			store.dispatch("createRecipe", {
+		const submitEdit = () => {
+			emit("toggleEdit")
+			store.dispatch("updateRecipe", {
+				id: oldRecipe.id,
 				title: state.title,
 				ingredients: [...state.ingredients],
 				note: state.note,
@@ -103,23 +96,19 @@ export default {
 			state.title = ""
 			state.ingredients = []
 			state.note = ""
-			cancelForm()
+		}
+		const cancleEdit = () => {
+			emit("toggleEdit")
 		}
 		return {
-			submitRecipe,
-			cancelForm,
 			addIngredient,
+			removeIngredient,
+			submitEdit,
+			cancleEdit,
 			...toRefs(state),
 		}
 	},
 }
 </script>
 
-<style lang="scss" scoped>
-#inputSpan {
-	width: 3rem;
-	&::placeholder {
-		color: darkgray;
-	}
-}
-</style>
+<style lang="scss" scoped></style>

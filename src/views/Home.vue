@@ -1,7 +1,7 @@
 <template>
 	<div class="main">
-		<Recipe v-for="recipe in recipes" :key="recipe['id']" :recp="recipe" />
-		<RecipeForm v-if="state.showForm" @exitForm="toggleForm" />
+		<Recipe v-for="recipe in recipes" :key="recipe['id']" :recp="recipe" @viewMode="viewMode" />
+		<RecipeForm v-if="state.showForm" @exitForm="toggleForm" :recipe="{}" />
 		<div class="addNew">
 			<button class="btn btn-dark p-3" v-if="!state.showForm" @click="toggleForm">Add</button>
 		</div>

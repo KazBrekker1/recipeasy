@@ -1,5 +1,5 @@
 <template>
-	<div :class="{blurred: showModal}" class="card bg-dark mb-3 pb-1 font-monospace shadow-lg recipe">
+	<div v-if="!showEdit" class="card bg-dark mb-3 pb-1 font-monospace shadow-lg recipe">
 		<div class="card-header bg-warning rounded p-0">{{ recp.title }}</div>
 		<div class="card-body overflow-auto">
 			<h5 class="card-title text-decoration-underline text-left text-white">
@@ -23,10 +23,11 @@
 		</div>
 		<div class="card-footer p-1 shadow-sm">
 			<button type="button" class="btn btn-primary" @click="toggleView">View</button>
-			<button type="button" class="btn btn-warning">Edit</button>
+			<button type="button" class="btn btn-warning" @click="toggleEdit">Edit</button>
 			<button type="button" class="btn btn-danger" @click="deleteRecipe">Delete</button>
 		</div>
 	</div>
+	<RecipeEdit v-if="showEdit" :recipe="recp" @toggleEdit="toggleEdit" />
 	<viewModal v-if="showModal" :recp="recp" @closeView="toggleView" />
 </template>
 
@@ -34,21 +35,27 @@
 import * as fb from "../Firebase"
 import {useStore} from "vuex"
 import viewModal from "@/components/viewModal"
+import RecipeEdit from "@/components/RecipeEdit"
 import {ref} from "vue"
 
 export default {
 	name: "Recipe",
 	components: {
 		viewModal,
+		RecipeEdit,
 	},
 	props: {
 		recp: Object,
 	},
-	setup(props, ctx) {
+	setup(props, {emit}) {
 		const store = useStore()
 		let showModal = ref(false)
+		let showEdit = ref(false)
 		const toggleView = () => {
 			showModal.value = !showModal.value
+		}
+		const toggleEdit = () => {
+			showEdit.value = !showEdit.value
 		}
 		const deleteRecipe = () => {
 			let recipe = props.recp
@@ -59,6 +66,8 @@ export default {
 			deleteRecipe,
 			toggleView,
 			showModal,
+			showEdit,
+			toggleEdit,
 		}
 	},
 }

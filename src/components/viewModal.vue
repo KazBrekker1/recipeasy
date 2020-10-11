@@ -1,5 +1,5 @@
 <template>
-	<div class="card bg-dark mb-3 pb-1 font-monospace shadow-lg recipe viewModal">
+	<div class="card bg-dark mb-3 pb-1 font-monospace shadow-lg recipe" id="viewModal">
 		<div class="card-header bg-warning rounded p-0">{{ recp.title }}</div>
 		<div class="card-body overflow-auto">
 			<h5 class="card-title text-decoration-underline text-left text-white">

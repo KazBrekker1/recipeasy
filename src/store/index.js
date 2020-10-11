@@ -78,7 +78,14 @@ export default createStore({
 				userName: state.userProfile.name,
 			})
 		},
-		async removeRecipe(recipeID) {
+		async updateRecipe({}, recipe) {
+			await fb.recipesCollection.doc(recipe.id).update({
+				title: recipe.title,
+				ingredients: [...recipe.ingredients],
+				note: recipe.note,
+			})
+		},
+		async removeRecipe({}, recipeID) {
 			await fb.recipesCollection.doc(recipeID).delete()
 		},
 	},
