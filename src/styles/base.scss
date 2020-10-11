@@ -21,7 +21,7 @@ body {
 .recipe {
 	height: 30rem;
 	align-self: stretch;
-	padding: 1em;
+	padding: 0.5em;
 	margin: 1rem;
 	transition: 300ms ease-in-out;
 	&:hover {
@@ -29,6 +29,7 @@ body {
 	}
 	.card-header {
 		font-size: 1.5rem;
+		margin-bottom: 7px;
 	}
 	.card-footer {
 		.btn {
@@ -45,7 +46,7 @@ body {
 			background: transparent;
 		}
 		&::-webkit-scrollbar-thumb {
-			background-color: #E4572E;
+			background-color: gray;
 			border-radius: 40px;
 		}
 	}
