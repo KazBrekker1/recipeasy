@@ -16,7 +16,7 @@
 			v-model.trim="pwd"
 			required
 		/>
-		<button type="submit" class="btn btn-warning mb-3">
+		<button type="submit" class="btn btn-warning mb-3 w-25">
 			login
 		</button>
 		<router-link to="/register">need an account?</router-link>
@@ -62,7 +62,7 @@ export default {
 	place-items: center;
 	input {
 		color: black;
-		width: 80%;
+		width: 90%;
 		margin-bottom: 20px;
 	}
 	a {

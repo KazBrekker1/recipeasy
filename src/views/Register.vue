@@ -25,7 +25,7 @@
 			pattern="(?=.*\d)(?=.*[a-z]).{6,}"
 			title="1 Number, 1 Lowercase, Min 6 characters"
 		/>
-		<button type="submit" class="btn btn-warning mb-3">
+		<button type="submit" class="btn btn-warning mb-3 w-25">
 			Submit
 		</button>
 		<router-link to="/login">have an account?</router-link>
@@ -72,7 +72,7 @@ export default {
 	place-items: center;
 	input {
 		color: black;
-		width: 80%;
+		width: 90%;
 		margin-bottom: 20px;
 	}
 	a {

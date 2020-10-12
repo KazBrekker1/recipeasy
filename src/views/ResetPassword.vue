@@ -9,7 +9,7 @@
 			v-model.trim="emailTxt"
 			required
 		/>\
-		<button type="submit" class="btn btn-warning mb-3">
+		<button type="submit" class="btn btn-warning mb-3 w-25">
 			Submit
 		</button>
 	</form>
@@ -49,7 +49,7 @@ export default {
 	place-items: center;
 	input {
 		color: black;
-		width: 80%;
+		width: 90%;
 		margin-bottom: 20px;
 	}
 	a {
