@@ -59,7 +59,7 @@ export default {
 <style scoped lang="scss">
 .main {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 	.addNew {
 		min-height: 20rem;
 		display: grid;

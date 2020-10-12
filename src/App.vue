@@ -14,6 +14,7 @@
 		</div>
 		<button v-else class="btn btn-danger m-3" @click="logout">Logout</button>
 	</nav>
+	<p id="successMsg" class="alert-success alert p-0 pl-2 pr-2 w-25" v-if="success">{{ success }}</p>
 	<router-view />
 </template>
 
@@ -23,7 +24,6 @@
 	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 	text-align: center;
 }
-
 #nav {
 	a {
 		font-size: 1.75rem;
@@ -43,6 +43,14 @@
 		color: #f3d631;
 	}
 }
+#successMsg {
+	position: absolute;
+	z-index: 10;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
 </style>
 
 <script>
@@ -59,7 +67,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(["userProfile"]),
+		...mapState(["userProfile", "success"]),
 	},
 }
 </script>

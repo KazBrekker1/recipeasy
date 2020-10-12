@@ -20,6 +20,7 @@
 			login
 		</button>
 		<router-link to="/register">need an account?</router-link>
+		<router-link to="/reset">forgot password?</router-link>
 	</form>
 </template>
 
@@ -55,9 +56,9 @@ export default {
 <style scoped lang="scss">
 .login {
 	margin: auto;
-	margin-top: 10%;
+	margin-top: 7%;
 	display: grid;
-	width: 30%;
+	width: 350px;
 	place-items: center;
 	input {
 		color: black;
