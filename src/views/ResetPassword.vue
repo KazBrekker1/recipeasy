@@ -27,7 +27,6 @@ export default {
 		})
 		const reset = () => {
 			store.dispatch("reset", state.emailTxt)
-			console.log(12143);
 		}
 		return {
 			...toRefs(state),
@@ -45,7 +44,7 @@ export default {
 	margin: auto;
 	margin-top: 7%;
 	display: grid;
-	width: 350px;
+	width: 370px;
 	place-items: center;
 	input {
 		color: black;

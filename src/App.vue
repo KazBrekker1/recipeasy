@@ -1,18 +1,19 @@
 <template>
-	<nav id="nav" class="nav justify-content-between bg-dark sticky-top p-0">
+	<nav id="nav" class="navbar bg-dark sticky-top p-1 shadow-sm justify-content-between">
 		<router-link class="nav-item" to="/">Recipeasy</router-link>
-		<h3 v-if="userProfile.name" class="m-auto">
-			<strong> {{ userProfile.name }}</strong> 's Kitchen
+		<h3 class="m-auto" v-if="userProfile.name">
+			<strong> {{ userProfile.name }}</strong
+			>'s Kitchen
 		</h3>
-		<div v-if="!userProfile.name" class="p-2">
-			<router-link to="/login" id="loginBTN" class="nav-item bg-dark">
+		<div v-if="!userProfile.name" class="ml-5">
+			<router-link to="/login" class="nav-item">
 				Log-In
 			</router-link>
-			<router-link to="/register" id="registerBTN" class="nav-item bg-dark">
+			<router-link to="/register" class="nav-item">
 				Register
 			</router-link>
 		</div>
-		<button v-else class="btn btn-danger m-3" @click="logout">Logout</button>
+		<button v-else class="btn m-1 px-3 btn-outline-warning" @click="logout">Logout</button>
 	</nav>
 	<p id="successMsg" class="alert-success alert p-0 pl-2 pr-2 w-25" v-if="success">{{ success }}</p>
 	<router-view />
@@ -25,10 +26,12 @@
 	text-align: center;
 }
 #nav {
+	display: grid;
+	grid-auto-flow: column;
 	a {
-		font-size: 1.75rem;
-		font-family: "Architects Daughter", cursive;
 		margin: 10px;
+		font-size: 30px;
+		font-family: "Pacifico", cursive;
 		color: whitesmoke;
 		text-decoration: none;
 		transition: 200ms ease-in-out;

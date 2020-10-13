@@ -5,7 +5,7 @@
 			<h5 class="card-title text-decoration-underline text-left text-white">
 				Ingredients:
 			</h5>
-			<ul class="list-group card-text">
+			<ul class="list-group card-text text-left">
 				<li
 					class="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center rounded m-1"
 					v-for="ingredient in recp.ingredients"

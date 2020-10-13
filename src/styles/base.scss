@@ -1,13 +1,12 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
-@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
-html,
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 body {
 	box-sizing: border-box;
 
 	height: 100%;
 	width: 100%;
 	margin: 0;
-	background-color: #cf5c36;
+	background-color: #9DCDC0;
 	&::-webkit-scrollbar {
 		width: 0;
 	}
@@ -20,7 +19,6 @@ body {
 }
 .recipe {
 	height: 30rem;
-	align-self: stretch;
 	padding: 0.5em;
 	margin: 1rem;
 	transition: 300ms ease-in-out;
