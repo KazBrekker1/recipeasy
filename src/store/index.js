@@ -31,12 +31,11 @@ export default createStore({
 		async login({dispatch, commit}, form) {
 			// sign user in
 			try {
-				const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password).then(() => {
-					NProgress.done()
-					commit("setError", "")
-					commit("setSuccess", "Welcome Back!")
-				})
+				const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
 				dispatch("fetchUserProfile", user)
+				NProgress.done()
+				commit("setError", "")
+				commit("setSuccess", "Welcome Back!")
 			} catch (err) {
 				commit("setError", err.code)
 				NProgress.done()
@@ -55,19 +54,14 @@ export default createStore({
 		},
 		async register({dispatch, commit}, form) {
 			try {
-				const {user} = await fb.auth
-					.createUserWithEmailAndPassword(form.email, form.password)
-					.then(() => {
-						NProgress.done()
-					})
-					.then(() => {
-						commit("setError", "")
-						commit("setSuccess", "Welcome To Your Kitchen!")
-					})
+				const {user} = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
 				// create user profile object in userCollections
 				await fb.usersCollection.doc(user.uid).set({
 					name: form.name,
 				})
+				NProgress.done()
+				commit("setError", "")
+				commit("setSuccess", "Welcome To Your Kitchen!")
 				// fetch user profile and set in state
 				dispatch("fetchUserProfile", user)
 			} catch (err) {
@@ -81,40 +75,32 @@ export default createStore({
 		},
 		async reset({commit}, email) {
 			try {
-				await fb.auth.sendPasswordResetEmail(email).then(() => {
-					commit("setSuccess", "Check Your Email!")
-					commit("setError", "")
-				})
+				await fb.auth.sendPasswordResetEmail(email)
+				commit("setSuccess", "Check Your Email!")
+				commit("setError", "")
 				router.push("/login")
 			} catch (err) {
 				commit("setError", err.code)
 			}
 		},
 		async createRecipe({state, commit}, recipe) {
-			await fb.recipesCollection
-				.add({
-					createdOn: new Date(),
-					title: recipe.title,
-					ingredients: [...recipe.ingredients],
-					note: recipe.note,
-					userId: fb.auth.currentUser.uid,
-					userName: state.userProfile.name,
-				})
-				.then(() => {
-					commit("setSuccess", "Recipe Added")
-				})
+			await fb.recipesCollection.add({
+				createdOn: new Date(),
+				title: recipe.title,
+				ingredients: [...recipe.ingredients],
+				note: recipe.note,
+				userId: fb.auth.currentUser.uid,
+				userName: state.userProfile.name,
+			})
+			commit("setSuccess", "Recipe Added")
 		},
 		async updateRecipe({commit}, recipe) {
-			await fb.recipesCollection
-				.doc(recipe.id)
-				.update({
-					title: recipe.title,
-					ingredients: [...recipe.ingredients],
-					note: recipe.note,
-				})
-				.then(() => {
-					commit("setSuccess", "Recipe Updated")
-				})
+			await fb.recipesCollection.doc(recipe.id).update({
+				title: recipe.title,
+				ingredients: [...recipe.ingredients],
+				note: recipe.note,
+			})
+			commit("setSuccess", "Recipe Updated")
 		},
 		async removeRecipe({commit}, recipeID) {
 			await fb.recipesCollection

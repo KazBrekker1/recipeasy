@@ -13,7 +13,7 @@
 			<h5 class="card-title text-decoration-underline text-left">
 				Ingredients:
 			</h5>
-			<ul class="list-group card-text">
+			<ul class="list-group card-text text-left">
 				<li
 					v-for="(ingredient, index) in ingredients"
 					:key="index"
@@ -21,7 +21,7 @@
 				>
 					{{ ingredient.name }}
 					<span class="badge bg-primary rounded-pill p-2"> {{ ingredient.qty }} </span>
-					<button class="btn btn-danger" @click="removeIngredient(index)">-</button>
+					<button class="btn btn-danger ml-3" @click="removeIngredient(index)">-</button>
 				</li>
 				<li
 					class="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center rounded m-1"

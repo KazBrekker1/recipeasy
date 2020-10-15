@@ -17,7 +17,7 @@
 			</ul>
 			<hr class="bg-light" />
 			<h5 class="text-left text-white text-decoration-underline">Notes:</h5>
-			<p class="text-white ">
+			<p class="text-white text-left">
 				{{ recp.note }}
 			</p>
 		</div>
@@ -45,6 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .recipe {
+	font-size: 1.5em;
 	z-index: 10;
 	width: 50%;
 	height: 75%;

@@ -19,6 +19,26 @@
 	<router-view />
 </template>
 
+<script>
+import {useStore, mapState} from "vuex"
+import {ref} from "vue"
+export default {
+	setup() {
+		const store = useStore()
+		const logout = () => {
+			store.dispatch("logout")
+		}
+		return {
+			logout,
+		}
+	},
+	computed: {
+		...mapState(["userProfile"]),
+		...mapState(["success"]),
+	},
+}
+</script>
+
 <style lang="scss">
 #app {
 	height: 80%;
@@ -55,22 +75,3 @@
 	margin-right: auto;
 }
 </style>
-
-<script>
-import {useStore, mapState} from "vuex"
-import {ref} from "vue"
-export default {
-	setup() {
-		const store = useStore()
-		const logout = () => {
-			store.dispatch("logout")
-		}
-		return {
-			logout,
-		}
-	},
-	computed: {
-		...mapState(["userProfile", "success"]),
-	},
-}
-</script>

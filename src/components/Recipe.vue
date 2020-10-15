@@ -17,7 +17,7 @@
 			</ul>
 			<hr class="bg-light" />
 			<h5 class="text-left text-white text-decoration-underline">Notes:</h5>
-			<p class="text-white ">
+			<p class="text-white text-left">
 				{{ recp.note }}
 			</p>
 		</div>

@@ -35,11 +35,9 @@ export default {
 			.orderBy("createdOn", "desc")
 			.onSnapshot((snapshot) => {
 				let recipesArray = []
-
 				snapshot.forEach((doc) => {
 					let recipe = doc.data()
 					recipe.id = doc.id
-
 					recipesArray.unshift(recipe) // Temporary
 				})
 

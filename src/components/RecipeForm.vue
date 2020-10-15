@@ -13,7 +13,7 @@
 			<h5 class="card-title text-decoration-underline text-left text-white">
 				Ingredients:
 			</h5>
-			<ul class="list-group card-text">
+			<ul class="list-group card-text text-left">
 				<li
 					v-for="(ingredient, index) in ingredients"
 					:key="index"
