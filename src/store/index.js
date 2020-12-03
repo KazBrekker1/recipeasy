@@ -107,7 +107,7 @@ export default createStore({
 				.doc(recipeID)
 				.delete()
 				.then(() => {
-					commit("setSuccess", "Recipe Removed")
+					commit("setError", "Recipe Removed")
 				})
 		},
 	},

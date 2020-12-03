@@ -16,6 +16,7 @@
 		<button v-else class="btn m-1 px-3 btn-outline-warning" @click="logout">Logout</button>
 	</nav>
 	<p id="successMsg" class="alert-success alert p-0 pl-2 pr-2 w-25" v-if="success">{{ success }}</p>
+	<p id="errorMsg" class="alert-danger alert p-0 pl-2 pr-2 w-25" v-if="error">{{ error }}</p>
 	<router-view />
 </template>
 
@@ -34,7 +35,7 @@ export default {
 	},
 	computed: {
 		...mapState(["userProfile"]),
-		...mapState(["success"]),
+		...mapState(["success", "error"]),
 	},
 }
 </script>
@@ -66,7 +67,7 @@ export default {
 		color: #f3d631;
 	}
 }
-#successMsg {
+#successMsg, #errorMsg {
 	position: absolute;
 	z-index: 10;
 	left: 0;

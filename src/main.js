@@ -11,6 +11,7 @@ auth.onAuthStateChanged((user) => {
 			.use(store)
 			.use(router)
 			.mount("#app")
+			document.title = "Recipeasy"
 	}
 	if (user) {
 		store.dispatch("fetchUserProfile", user)

@@ -6,7 +6,7 @@ body {
 	height: 100%;
 	width: 100%;
 	margin: 0;
-	background-color: #9DCDC0;
+	background-color: #ff6034;
 	&::-webkit-scrollbar {
 		width: 0;
 	}
@@ -23,7 +23,7 @@ body {
 	margin: 1rem;
 	transition: 300ms ease-in-out;
 	&:hover {
-		transform: translateY(-5px);
+		transform: translateY(-3px);
 	}
 	.card-header {
 		font-size: 1.5rem;
