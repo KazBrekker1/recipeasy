@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import {useStore, mapState} from "vuex"
-import {ref} from "vue"
+import { useStore, mapState } from "vuex"
+import { ref } from "vue"
 export default {
 	setup() {
 		const store = useStore()
@@ -67,7 +67,8 @@ export default {
 		color: #f3d631;
 	}
 }
-#successMsg, #errorMsg {
+#successMsg,
+#errorMsg {
 	position: absolute;
 	z-index: 10;
 	left: 0;
