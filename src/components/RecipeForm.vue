@@ -85,7 +85,7 @@ export default {
 		const addIngredient = () => {
 			state.required = false
 			state.ingredients.push({
-				name: state.ingr.name,
+				name: state.ingr.name || "Nothing",
 				qty: state.ingr.qty || "Bil7ob",
 			})
 			state.ingr.name = ""
