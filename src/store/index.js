@@ -33,7 +33,6 @@ export default createStore({
 			try {
 				const {user} = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
 				dispatch("fetchUserProfile", user)
-				NProgress.done()
 				commit("setError", "")
 				commit("setSuccess", "Welcome Back!")
 			} catch (err) {
