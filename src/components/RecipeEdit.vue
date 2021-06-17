@@ -1,5 +1,5 @@
 <template>
-	<form class="card bg-light mb-3 pb-1 font-monospace shadow-lg recipe" @submit.prevent="submitRecipe">
+	<form class="card bg-light mb-3 pb-1 font-monospace shadow-lg recipe" @submit.prevent="submitEdit">
 		<div class="card-header bg-info rounded p-0">
 			<input
 				placeholder="Recipe Title"
@@ -48,7 +48,7 @@
 			</textarea>
 		</div>
 		<div class="card-footer p-1 shadow-sm">
-			<button type="submit" class="btn btn-success" @click="submitEdit">Submit</button>
+			<button type="submit" class="btn btn-success" >Submit</button>
 			<button type="button" class="btn btn-danger" @click="cancleEdit">Cancle</button>
 		</div>
 	</form>
